@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="canvas" width="800" height="800"></canvas>
+
+<script>
+  const frames = ["video/1.png", "video/2.png", "video/3.png", "video/4.png", "video/5.png", "video/6.png","video/7.png","video/8.png", "video/9.png", "video/10.png"];
+  let index = 0;
+  let direction = 1; // 1 for forward, -1 for reverse
+  const canvas = document.getElementById("canvas");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext("2d");
+  const img = new Image();
+
+  function drawFrame() {
+    img.src = frames[index];
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+
+    index += direction;
+
+    // Reverse direction at the edges
+    if (index === frames.length - 1 || index === 0) {
+      direction *= -1;
+    }
+  }
+
+  setInterval(drawFrame, 100); // Change frame every 100ms
+</script>
+</body>
+</html>
